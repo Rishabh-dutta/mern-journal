@@ -1,5 +1,6 @@
 import Post from "../post";
 import logo from "../logo.png"
+import "../App.css"
 
 
 export default function IndexPage() {
@@ -11,7 +12,7 @@ export default function IndexPage() {
         </div>
     );*/
     return (
-        <header>
+        <body>
             <div class="search-container">
 
                 <input type="text" class="search-input" placeholder="Search..." />
@@ -25,6 +26,6 @@ export default function IndexPage() {
                     <img src={logo} alt="Error Loading Image" />
                 </div>
             </div>
-        </header>
+        </body>
     );
 }

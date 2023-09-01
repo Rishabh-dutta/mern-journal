@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "./logo.png"
 export default function Header() {
   return (
-    <restheader>
+    <header>
       
 
         <div class="right">
@@ -24,7 +24,7 @@ export default function Header() {
             <li><Link to="#">Contact Us</Link></li>
           </ul>
         </div>
-        </restheader>
+        </header>
   
         /*
       <Link to="/" className="logo">MyBlog</Link>
