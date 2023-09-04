@@ -1,11 +1,12 @@
 export default function Post(){
+  /* <div className="image">
+  <img src="https://techcrunch.com/wp-content/uploads/2023/05/T-15882236-L.jpg?w=1390&crop=1"></img>
+  </div>*/
     return(
       
 
       <div className="post">
-    <div className="image">
-      <img src="https://techcrunch.com/wp-content/uploads/2023/05/T-15882236-L.jpg?w=1390&crop=1"></img>
-      </div>
+   
       <div className="texts">
         <h2>Full-house battery backup coming next year</h2>
         <p className="info">

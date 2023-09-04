@@ -51,7 +51,7 @@ export default function Header() {
         <div class="rightnav">
           <ul class="navbar">
             <li><Link to="/index">Home</Link> </li>
-            <li><Link to="#">Journals</Link></li>
+            <li><Link to="/blogs">Journals</Link></li>
             <li><Link to="#">Books</Link></li>
             <li><Link to="#">About Us</Link></li>
             <li><Link to="#">Contact Us</Link></li>
