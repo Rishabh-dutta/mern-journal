@@ -9,12 +9,13 @@ import ProfilePage from './pages/ProfilePage';
 import RegisterPage from './pages/RegisterPage';
 import Post from './post';
 import {Route,Routes} from "react-router-dom";
+import { UserContextProvider } from './userContext';
 
 
 
 function App() {
   return (
-
+      <UserContextProvider>
       <Routes>
       <Route path="/" element={<Layout />}>
       <Route index element={<IndexPage />} />
@@ -26,6 +27,7 @@ function App() {
       </Route>
      
       </Routes>
+      </UserContextProvider>
       
     
   

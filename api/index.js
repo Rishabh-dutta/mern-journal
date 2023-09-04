@@ -9,8 +9,13 @@ const cors=require('cors')
 const salt=bcrypt.genSaltSync(10);
 const secret='uhi23h953uh9gb394h8f297egf754w983';
 const jwt=require('jsonwebtoken');
-app.use(cors());
+const cookieParser=require('cookie-parser');
+
+
+
+app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose.connect('mongodb+srv://schizophrenic2003:8MVlwrTu9mcavGWt@cluster0.smzgfmq.mongodb.net/?retryWrites=true&w=majority');
 
@@ -44,9 +49,9 @@ app.post('/login',async (req,res)=>{
     {
         jwt.sign({username,id:userDoc._id},secret, {}, (err,token)=>
         {
-           /* if(err)
-            throw err;*/
-            res.json(token);
+            if(err)
+            throw err;
+            res.cookie('token',token).json('ok');
         });
     }
     else
@@ -54,6 +59,25 @@ app.post('/login',async (req,res)=>{
         res.status(400).json('wrong creds');
     }
 })
+
+app.get('/profile',(req,res)=>{
+    const {token}=req.cookies;
+    //console.log(req.cookies);
+    jwt.verify(token,secret,{},(err,info) => {
+        if(err)
+        throw err;
+        res.json(info);
+
+    })
+    //res.json(req.cookies);
+})
+
+
+app.post('/logout',(req,res)=>{
+    res.cookie('token','').json('ok');
+
+})
+
 
 app.listen(port,()=>{
     console.log(`listening at port: ${port}`)

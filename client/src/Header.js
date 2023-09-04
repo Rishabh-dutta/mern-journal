@@ -1,13 +1,46 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import logo from "./logo.png"
 export default function Header() {
+  const [username,setUsername]=useState(null);
+  useEffect(() => {
+    fetch('http://localhost:4000/profile',
+    {
+      credentials: 'include',
+    }).then(response =>{
+      response.json().then(userInfo => {
+        setUsername(userInfo.username);
+      })
+    })
+  }, []);
+
+  const logout= (ev)=>
+  {
+    fetch('http://localhost:4000/logout',
+    {
+      credentials: 'include',
+      method: 'POST'
+    });
+    setUsername(null);
+  }
   return (
     <header>
       
 
         <div class="right">
-          <button class="btn"><Link to="/login">Login</Link></button>
-          <button class="btn"> <Link to="/register">Register</Link></button>
+          {username && (
+            <>
+            <button class="btn"><Link to="/submit">Submit a journal</Link></button>
+            <button class="btn" onClick={logout}>Log out</button> 
+            </>
+          )}
+          {!username && (
+            <>
+                <button class="btn"><Link to="/login">Login</Link></button>
+                <button class="btn"> <Link to="/register">Register</Link></button>
+            </>
+          )}
+          
 
 
         </div>

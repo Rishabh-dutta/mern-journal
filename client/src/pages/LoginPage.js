@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom"
 
 export default function LoginPage ()
 {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
      let login=async (ev)=>
      {
         ev.preventDefault();
@@ -12,14 +14,20 @@ export default function LoginPage ()
             method: 'POST',
             body: JSON.stringify({username, password}),
             headers: {'Content-Type':'application/json'},
+            credentials: 'include',
         })
         if(response.status===200)
         {
             alert('login successful')
+            setRedirect(true);
         } 
         else{
             alert('login failed')
         }
+    }
+    if(redirect)
+    {
+        return <Navigate to={'/'} />
     }
     return (
        
