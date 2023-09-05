@@ -1,6 +1,6 @@
 import Post from "../post";
 import logo from "../logo.png"
-import "../App.css"
+import "../CSS material/App.css"
 
 
 export default function IndexPage() {

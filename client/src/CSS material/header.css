@@ -1,0 +1,116 @@
+form.login, form.register{
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .login, .register{
+    position: absolute;
+    top: 16em;
+    left: 30em
+    
+  }
+
+  form h1{
+    text-align: center;
+  }
+  
+  
+  header {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    
+    /*background-image: url('1.jpg');*/
+    background-color: rgb(223, 240, 253);
+    color: black;
+    background-size: 100%;
+    background-position: center;
+    height: 115vh;
+    margin-top: -100px;
+  }
+  
+  title {
+    display: flex;
+  }
+  
+  .left {
+    display: inline-block;
+    position: absolute;
+    left: 48px;
+    top: 170px;
+  }
+
+  .left img {
+    width: 200px;
+  
+    filter: invert(0%);
+    padding-top: 0px;
+    padding-left: 550px;
+  }
+  
+  .left div {
+    text-align: center;
+  }
+  
+  .right {
+    display: inline-block;
+    position: absolute;
+    right: 34px;
+    top: 20px;
+  }
+  
+  .rightnav {
+    display: inline-block;
+    position: absolute;
+    right: 35px;
+    top: 50px;
+  }
+  
+  .mid {
+    display: block;
+    width: 40%;
+    margin: 20px auto;
+  
+  }
+  
+  .navbar {
+    display: inline-block;
+    background-color: rgb(93 204 235);
+    padding: 5px 0;
+    border-radius: 10px;
+  }
+  
+  .navbar li {
+    display: inline-block;
+    font-size: 17px;
+  }
+  
+  .navbar li a:hover,
+  .navbar li a.active {
+    text-decoration: underline;
+    color: grey;
+  
+  }
+  
+  .navbar li a {
+    color: white;
+    text-decoration: none;
+    padding: 34px 34px;
+  }
+  
+  .btn {
+    margin: 0px 5px;
+    color: rgb(231, 235, 238);
+    background-color: rgb(7, 7, 119);
+    border: 2px solid rgb(6, 13, 20);
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 12px;
+    cursor: pointer;
+  
+  }
+  
+  .btn:hover {
+    background-color: white;
+    color: darkblue;
+  }
+  
