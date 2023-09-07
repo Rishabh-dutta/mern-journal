@@ -1,8 +1,9 @@
-export default function Post(){
+import {formatISO9075} from "date-fns";
+export default function Post({title,summary,content,cover,createdAt,author}){
   /* <div className="image">
   <img src="https://techcrunch.com/wp-content/uploads/2023/05/T-15882236-L.jpg?w=1390&crop=1"></img>
   </div>*/
-    return(
+    /*return(
       
 
       <div className="post">
@@ -20,6 +21,24 @@ export default function Post(){
             </div>
             </div>
             
+    );*/
+
+
+    return(
+      
+
+      <div className="post">
+   
+      <div className="texts">
+        <h2>{title}</h2>
+        <p className="info">
+          <a className="author">{author.username}</a>
+          <time>{formatISO9075(new Date(createdAt))}</time>
+        </p>
+        <p>{summary}
+            </p>
+            </div>
+            </div>
     );
    
 }

@@ -3,6 +3,9 @@ const app=express();
 const mongoose=require('mongoose');
 const User=require('./models/User');
 const bcrypt=require('bcryptjs');
+const multer=require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/'})
+const fs=require('fs');
 //8MVlwrTu9mcavGWt
 //mongodb+srv://schizophrenic2003:8MVlwrTu9mcavGWt@cluster0.smzgfmq.mongodb.net/?retryWrites=true&w=majority
 const cors=require('cors')
@@ -10,6 +13,7 @@ const salt=bcrypt.genSaltSync(10);
 const secret='uhi23h953uh9gb394h8f297egf754w983';
 const jwt=require('jsonwebtoken');
 const cookieParser=require('cookie-parser');
+const  Post = require('./models/Post');
 
 
 
@@ -81,6 +85,56 @@ app.post('/logout',(req,res)=>{
 
 })
 
+
+app.post('/submit',uploadMiddleware.single('file'),async (req,res)=>{
+    const {originalname,path} = req.file;
+    const parts=originalname.split('.');
+    const ext=parts[parts.length - 1];
+    const newPath =  path+'.'+ext;
+    fs.renameSync(path,newPath)
+
+    
+    const {token}=req.cookies;
+    //console.log(req.cookies);
+    jwt.verify(token,secret,{},async (err,info) => {
+        if(err)
+        throw err;
+
+        const {title,summary,content} = req.body;
+        const postDoc = await Post.create({
+            title,
+            summary,
+            content,
+            cover:newPath,
+            author:info.id,
+    
+        });
+        res.json(postDoc);
+        //res.json(info);
+
+    })
+    
+
+
+
+
+
+
+
+    
+    //res.json({ext,title,summary,content});
+    //res.json({files:req.file});
+    
+})
+
+
+app.get('/post',async (req,res) => {
+    
+    res.json(await Post.find()
+    .populate('author', ['username'])
+    .sort({createdAt: -1})
+    );
+});
 
 app.listen(port,()=>{
     console.log(`listening at port: ${port}`)
