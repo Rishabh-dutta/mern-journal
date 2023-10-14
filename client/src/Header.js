@@ -26,19 +26,28 @@ export default function Header() {
     setUserInfo(null);
   }
 const username=userInfo?.username;
+const isadmin=userInfo?.isadmin;
 
   return (
     <header>
       
 
         <div class="right">
-          {username && (
+          {isadmin && username && (
+            <>
+            <button class="btn"><Link to="/verify">Verification</Link></button>
+            <button class="btn" onClick={logout}>Log out</button> 
+            </>
+          )
+
+          }
+          {!isadmin && username && (
             <>
             <button class="btn"><Link to="/submit">Submit a journal</Link></button>
             <button class="btn" onClick={logout}>Log out</button> 
             </>
           )}
-          {!username && (
+          {! isadmin && !username && (
             <>
                 <button class="btn"><Link to="/login">Login</Link></button>
                 <button class="btn"> <Link to="/register">Register</Link></button>

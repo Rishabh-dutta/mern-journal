@@ -16,6 +16,7 @@ import Post from './post';
 import {Route,Routes} from "react-router-dom";
 import { UserContextProvider } from './userContext';
 import PostPage from './pages/PostPage';
+import VerifyPage from './pages/VerifyPage';
 
 
 
@@ -26,6 +27,7 @@ function App() {
       <Route path="/" element={<Layout />}>
       <Route index element={<IndexPage />} />
       <Route path={'/login'} element={<LoginPage />} />
+      <Route path={'/verify'} element={<VerifyPage />} />
       <Route path={'/index'} element={<IndexPage />} />
       <Route path={'/register'} element={<RegisterPage />} />
       <Route path={'/blogs'} element={<BlogsPage />} />

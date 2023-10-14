@@ -36,3 +36,8 @@ div.post{
     margin: 10px 0;
     line-height: 1.4rem;
   }
+
+  object{
+    width: 1400px;
+    height: 1000px;
+  }

@@ -11,6 +11,11 @@ export default function LoginPage ()
      let login=async (ev)=>
      {
         ev.preventDefault();
+       /* const xxx=Array.from(username).forEach(element => {
+            console.log(element)
+            
+        });*/
+        
 
         const response = await fetch('http://localhost:4000/login',{
             method: 'POST',

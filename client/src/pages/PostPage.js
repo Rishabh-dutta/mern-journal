@@ -45,29 +45,18 @@ export default function PostPage() {
     return (
         <div classname="post-page">
             <h1>{postInfo.title}</h1>
+            <div className="author">by @{postInfo.author.username}</div>
+            <time>{formatISO9075(new Date(postInfo.createdAt))}</time>
+            <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />
             <div>
-                <Document file="http://localhost:4000/uploads/59a143e73c953cc8a74727652008b6ed.pdf" onLoadSuccess={onDocumentLoadSuccess}>
-                    <Page pageNumber={pageNumber} />
-                </Document>
-                <p>
-                    Page {pageNumber} of {numPages}
-                </p>
+                <object data="http://localhost:4000/uploads/59a143e73c953cc8a74727652008b6ed.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+                
+                </object>
+                
             </div>
             
            
 
-            
-
-
-
-
-
-
-
-
-            <div className="author">by @{postInfo.author.username}</div>
-            <time>{formatISO9075(new Date(postInfo.createdAt))}</time>
-            <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />
         </div>
 
     );
@@ -75,6 +64,18 @@ export default function PostPage() {
     //<div src={'http://localhost:4000/' + 'uploads/59a143e73c953cc8a74727652008b6ed.pdf'} alt="NO file" />
     /*
     <h1>{postInfo.title}</h1>
+
+
+
+    <Document file="http://localhost:4000/uploads/59a143e73c953cc8a74727652008b6ed.pdf" onLoadSuccess={onDocumentLoadSuccess}>
+                    <Page pageNumber={pageNumber} />
+                </Document>
+
+
+
+                <p>
+                    Page {pageNumber} of {numPages}
+                </p>
            
 */
 }

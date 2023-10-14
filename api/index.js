@@ -14,6 +14,7 @@ const secret='uhi23h953uh9gb394h8f297egf754w983';
 const jwt=require('jsonwebtoken');
 const cookieParser=require('cookie-parser');
 const  Post = require('./models/Post');
+const Admin = require('./models/Admin');
 
 
 
@@ -26,9 +27,26 @@ mongoose.connect('mongodb+srv://schizophrenic2003:8MVlwrTu9mcavGWt@cluster0.smzg
 
 const port=4000;
 app.post('/register',async (req,res)=>{
+    
    
     const {username,password}=req.body;
     try{
+
+        const tempun=Array.from(username).join('');
+        
+       
+        if(tempun.substring(2,7)==="admin")
+        {
+            console.log(tempun.substring(2,7))
+            const adminDoc=await Admin.create({
+                username,
+                password:bcrypt.hashSync(password,salt)});
+            
+                console.log(adminDoc);
+                res.json(adminDoc);
+        }
+        else
+        {
     const userDoc=await User.create({
         username,
         password:bcrypt.hashSync(password,salt)});
@@ -36,6 +54,7 @@ app.post('/register',async (req,res)=>{
     //res.json({requestData:{username,password}});
    //res.header({'username': username})
     res.json(userDoc);
+        }
     }
     catch(e)
     {
@@ -46,7 +65,39 @@ app.post('/register',async (req,res)=>{
 
 app.post('/login',async (req,res)=>{
     const {username, password} = req.body;
+
+    const adminDoc = await Admin.findOne({username});
+    if(adminDoc)
+    {
+        
+    const authorized = bcrypt.compareSync(password,adminDoc.password);
+    console.log(authorized)
+    if(!authorized)
+    {
+        res.status(400).json('wrong creds');
+    }
+    else{
+        jwt.sign({username,id:adminDoc._id},secret, {}, (err,token)=>
+        {
+            if(err)
+            throw err;
+        res.cookie('token',token).json({
+            id: adminDoc._id,
+            username,
+            isadmin: true,
+
+        });
+        });
+    }
+    }
+    else
+    {
+
+
+
     const userDoc = await User.findOne({username});
+    if(userDoc)
+    {
     const passOk = bcrypt.compareSync(password, userDoc.password);
     //res.json(passOk);
     console.log(passOk);
@@ -59,6 +110,7 @@ app.post('/login',async (req,res)=>{
             res.cookie('token',token).json({
                 id: userDoc._id,
                 username,
+                isadmin: false,
             });
         });
     }
@@ -66,6 +118,14 @@ app.post('/login',async (req,res)=>{
     {
         res.status(400).json('wrong creds');
     }
+    }
+    else
+    {
+        res.status(400).json('wrong creds');
+    }
+}
+    
+    
 })
 
 app.get('/profile',(req,res)=>{
