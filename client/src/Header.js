@@ -6,7 +6,7 @@ export default function Header() {
   const {setUserInfo,userInfo} = useContext(UserContext);
   //const [username,setUsername]=useState(null);
   useEffect(() => {
-    fetch('http://localhost:4000/profile',
+     fetch('http://localhost:4000/profile',
     {
       credentials: 'include',
     }).then(response =>{

@@ -15,6 +15,7 @@ import SubmitPage from './pages/SubmitPage'
 import Post from './post';
 import {Route,Routes} from "react-router-dom";
 import { UserContextProvider } from './userContext';
+import PostPage from './pages/PostPage';
 
 
 
@@ -30,6 +31,7 @@ function App() {
       <Route path={'/blogs'} element={<BlogsPage />} />
       <Route path={'/profile'} element={<ProfilePage />} />
       <Route path={'/submit'} element={<SubmitPage />} />
+      <Route path={'/post/:id'} element={<PostPage />} />
       </Route>
      
       </Routes>

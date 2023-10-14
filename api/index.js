@@ -20,6 +20,7 @@ const  Post = require('./models/Post');
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://schizophrenic2003:8MVlwrTu9mcavGWt@cluster0.smzgfmq.mongodb.net/?retryWrites=true&w=majority');
 
@@ -135,6 +136,18 @@ app.get('/post',async (req,res) => {
     .sort({createdAt: -1})
     );
 });
+
+
+
+app.get('/post/:id', async (req,res) => {
+    const {id} = req.params;
+    const postDoc = await Post.findById(id).populate('author', ['username']);
+    //console.log(postDoc);
+    res.json(postDoc);
+
+})
+
+
 
 app.listen(port,()=>{
     console.log(`listening at port: ${port}`)

@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import { Navigate } from "react-router-dom"
 import 'react-quill/dist/quill.snow.css';
 
+
 const modules = {
     toolbar: [
       [{ 'header': [1, 2, false] }],
