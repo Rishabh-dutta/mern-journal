@@ -2,7 +2,7 @@ import { useState } from "react";
 import ReactQuill from "react-quill";
 import { Navigate } from "react-router-dom"
 import 'react-quill/dist/quill.snow.css';
-
+import { UserContext } from "../userContext";
 
 const modules = {
     toolbar: [
@@ -53,17 +53,25 @@ export default function SubmitPage() {
             
         });
         //console.log(await response.json());
+        
         if(response.ok) {
+            console.log("dfhdhfjdfjd")
             setRedirect(true);
 
         }
+        else{
+            return <Navigate to={'/index'} />
+            console.log(redirect);
+            
+        }
+        /*if(redirect)
+        {
+          
+        }*/
        
 
     }
-    if(redirect)
-    {
-        return <Navigate to={'/'} />
-    }
+    
 
     return (
         <form onSubmit={submitJournal}>

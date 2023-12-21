@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom"
+
 import logo from "./logo.png"
 import { UserContext } from "./userContext";
 export default function Header() {
@@ -24,6 +26,7 @@ export default function Header() {
       method: 'POST'
     });
     setUserInfo(null);
+    return <Navigate to={'/index'} />
   }
 const username=userInfo?.username;
 const isadmin=userInfo?.isadmin;

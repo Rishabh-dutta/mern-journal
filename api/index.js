@@ -148,6 +148,7 @@ app.post('/logout',(req,res)=>{
 
 
 app.post('/submit',uploadMiddleware.single('file'),async (req,res)=>{
+    const {token}=req.cookies;
     const {originalname,path} = req.file;
     const parts=originalname.split('.');
     const ext=parts[parts.length - 1];
@@ -155,11 +156,25 @@ app.post('/submit',uploadMiddleware.single('file'),async (req,res)=>{
     fs.renameSync(path,newPath)
 
     
-    const {token}=req.cookies;
+   
+    //console.log(token);
     //console.log(req.cookies);
     jwt.verify(token,secret,{},async (err,info) => {
         if(err)
-        throw err;
+        {
+            
+            fs.unlink(newPath,(ev) =>
+            {
+                console.log(ev);
+            });
+            console.log(newPath);
+            res.status(400).json("WRong");
+            return;
+        
+        
+        }
+        
+        
 
         const {title,summary,content} = req.body;
         const postDoc = await Post.create({
@@ -172,6 +187,8 @@ app.post('/submit',uploadMiddleware.single('file'),async (req,res)=>{
         });
         res.json(postDoc);
         //res.json(info);
+        
+        
 
     })
     
@@ -196,6 +213,53 @@ app.get('/post',async (req,res) => {
     .sort({createdAt: -1})
     );
 });
+
+app.get('/searchforkeyword/:keyword',async (req,res) => {
+    const {keyword}=req.params;
+   
+    //console.log(typeof keyword==='string');
+    const keywords=keyword.split(" ");
+    //console.log(keywords);
+    const uniqueset=new Set();
+    let finalentries=[];
+    //Post.createIndexes({ "author" : "text"})
+    for(key of keywords)
+    {
+        //console.log(key);
+        
+        
+        //const notuniqueset = await Post.find( {title: { $regex: key} } );
+        const notuniqueset1 = await Post.find( { "$or": [
+            {"title": { "$regex": key} },
+            {"content": { "$regex": key} },
+            {"author.username": { "$regex": key} }
+        ]} );
+        
+       
+        finalentries=finalentries.concat(notuniqueset1);
+       
+    }
+    const ff=finalentries.filter((nus)=>{
+            
+        console.log(uniqueset.has(nus.title))
+        if(!uniqueset.has(nus.title))
+        {
+            uniqueset.add(nus.title);
+            return true;
+        }
+        else
+        return false;
+            //console.log(nus.title)
+            
+        
+    })
+    console.log(ff);
+    //const finalentries=Array.from(uniqueset);
+    console.log("hello new man here")
+    
+    //console.log(finalentries);
+    res.json(ff);
+})
 
 
 
